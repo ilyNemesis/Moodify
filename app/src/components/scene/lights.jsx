@@ -1,7 +1,7 @@
-export default function Lights({ color }) {
+export default function Lights({ color, intensity }) {
   return (
     <>
-      <ambientLight color={color} intensity={2.5} />
+      <ambientLight color={color} intensity={intensity} />
       <directionalLight
         castShadow
         color="#ffffff"
