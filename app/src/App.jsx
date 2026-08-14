@@ -8,6 +8,7 @@ import './App.css'
 
 function App() {
   const [lightColor, setLightColor] = useState('#ff7a45')
+  const [lightIntensity, setLightIntensity] = useState(2.5)
 
   return (
     <main className="experience">
@@ -21,7 +22,7 @@ function App() {
         shadows
       >
         <color attach="background" args={['#11131a']} />
-        <Lights color={lightColor} />
+        <Lights color={lightColor} intensity={lightIntensity} />
 
         <Suspense fallback={null}>
           <Bounds fit clip observe margin={1.2}>
@@ -32,7 +33,12 @@ function App() {
         <OrbitControls makeDefault enableDamping />
       </Canvas>
 
-      <LightControls color={lightColor} onColorChange={setLightColor} />
+      <LightControls
+        color={lightColor}
+        onColorChange={setLightColor}
+        intensity={lightIntensity}
+        onIntensityChange={setLightIntensity}
+      />
 
       <p className="experience__hint">
         Click and drag the mouse to explore the room.
