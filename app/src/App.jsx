@@ -1,9 +1,14 @@
 import { Suspense, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Bounds, OrbitControls } from '@react-three/drei'
+import { LIGHT_PRESETS } from './data/lightPresets'
+
 import Room from './components/scene/room.jsx'
 import Lights from './components/scene/lights.jsx'
 import LightControls from './components/ui/LightControls.jsx'
+import MoodPresets from './components/ui/MoodPresets.jsx'
+
+
 import './App.css'
 
 function App() {
@@ -38,6 +43,10 @@ function App() {
         onColorChange={setLightColor}
         intensity={lightIntensity}
         onIntensityChange={setLightIntensity}
+      />
+
+      <MoodPresets 
+        presets={LIGHT_PRESETS}
       />
 
       <p className="experience__hint">
