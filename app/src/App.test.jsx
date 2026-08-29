@@ -24,6 +24,10 @@ describe('App', () => {
     render(<App />)
 
     expect(
+      screen.getByRole('region', { name: 'Create your atmosphere' }),
+    ).toBeTruthy()
+
+    expect(
       screen.getByRole('button', { name: 'Cozy' }).getAttribute('aria-pressed'),
     ).toBe('true')
 
