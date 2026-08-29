@@ -29,6 +29,10 @@
   text-transform: uppercase;
 }
 
+.control-panel-toggle {
+  display: none;
+}
+
 .control-panel {
   position: absolute;
   z-index: 2;
@@ -143,7 +147,8 @@
 }
 
 .mood-presets button:focus-visible,
-.light-controls input:focus-visible {
+.light-controls input:focus-visible,
+.control-panel-toggle:focus-visible {
   outline: 2px solid #828fff;
   outline-offset: 2px;
 }
@@ -220,13 +225,73 @@
   .control-panel {
     top: auto;
     right: 1rem;
-    bottom: 1rem;
+    bottom: 5.5rem;
     left: 1rem;
     width: auto;
-    max-height: min(58dvh, 32rem);
+    max-height: min(62dvh, 32rem);
     gap: 1rem;
     padding: 0.9rem;
     border-radius: 0.75rem;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1rem) scale(0.98);
+    transform-origin: bottom right;
+    transition:
+      visibility 180ms ease,
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .control-panel[data-open='true'] {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+  }
+
+  .control-panel-toggle {
+    position: absolute;
+    z-index: 3;
+    right: 1rem;
+    bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: 1px solid rgb(255 255 255 / 8%);
+    border-radius: 50%;
+    color: #f7f8f8;
+    background: rgb(15 16 17 / 84%);
+    box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 28%);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+  }
+
+  .control-panel-toggle span {
+    width: 1.15rem;
+    height: 2px;
+    border-radius: 999px;
+    background: currentColor;
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  .control-panel-toggle[aria-expanded='true'] span:first-child {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .control-panel-toggle[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .control-panel-toggle[aria-expanded='true'] span:last-child {
+    transform: translateY(-6px) rotate(-45deg);
   }
 
   .mood-presets button {
@@ -253,7 +318,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mood-presets button {
+  .mood-presets button,
+  .control-panel,
+  .control-panel-toggle span {
     transition: none;
   }
 }

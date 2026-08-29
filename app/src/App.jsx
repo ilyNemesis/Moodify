@@ -15,6 +15,7 @@ import './App.css'
 function App() {
   const [lightColor, setLightColor] = useState('#ff7a45')
   const [lightIntensity, setLightIntensity] = useState(2.5)
+  const [isControlPanelOpen, setIsControlPanelOpen] = useState(false)
   const activePresetId = getActivePresetId(
     LIGHT_PRESETS,
     lightColor,
@@ -49,9 +50,24 @@ function App() {
         <OrbitControls makeDefault enableDamping />
       </Canvas>
 
+      <button
+        className="control-panel-toggle"
+        type="button"
+        aria-label={isControlPanelOpen ? 'Close settings' : 'Open settings'}
+        aria-controls="control-panel"
+        aria-expanded={isControlPanelOpen}
+        onClick={() => setIsControlPanelOpen((isOpen) => !isOpen)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+
       <section
+        id="control-panel"
         className="control-panel"
         aria-labelledby="control-panel-title"
+        data-open={isControlPanelOpen}
       >
         <header className="control-panel__header">
           <div>
