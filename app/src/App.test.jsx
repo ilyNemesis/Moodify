@@ -20,6 +20,28 @@ vi.mock('./components/scene/lights.jsx', () => ({
 }))
 
 describe('App', () => {
+  it('ouvre et ferme le panneau de réglages avec le bouton mobile', () => {
+    render(<App />)
+
+    const menuButton = screen.getByRole('button', { name: 'Open settings' })
+    const panel = screen.getByRole('region', {
+      name: 'Create your atmosphere',
+    })
+
+    expect(menuButton.getAttribute('aria-expanded')).toBe('false')
+    expect(panel.getAttribute('data-open')).toBe('false')
+
+    fireEvent.click(menuButton)
+
+    expect(menuButton.getAttribute('aria-expanded')).toBe('true')
+    expect(panel.getAttribute('data-open')).toBe('true')
+
+    fireEvent.click(menuButton)
+
+    expect(menuButton.getAttribute('aria-expanded')).toBe('false')
+    expect(panel.getAttribute('data-open')).toBe('false')
+  })
+
   it('applique le preset sélectionné et le marque comme actif', () => {
     render(<App />)
 
