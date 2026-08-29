@@ -49,18 +49,39 @@ function App() {
         <OrbitControls makeDefault enableDamping />
       </Canvas>
 
-      <LightControls
-        color={lightColor}
-        onColorChange={setLightColor}
-        intensity={lightIntensity}
-        onIntensityChange={setLightIntensity}
-      />
+      <section
+        className="control-panel"
+        aria-labelledby="control-panel-title"
+      >
+        <header className="control-panel__header">
+          <div>
+            <p className="control-panel__eyebrow">Lighting controls</p>
+            <h2 id="control-panel-title">Create your atmosphere</h2>
+          </div>
 
-      <MoodPresets
-        presets={LIGHT_PRESETS}
-        activePresetId={activePresetId}
-        onPresetSelect={handlePresetSelect}
-      />
+          <output className="control-panel__status">
+            {activePresetId
+              ? activePresetId[0].toUpperCase() + activePresetId.slice(1)
+              : 'Custom'}
+          </output>
+        </header>
+
+        <div className="control-panel__section">
+          <h3>Ambiance</h3>
+          <MoodPresets
+            presets={LIGHT_PRESETS}
+            activePresetId={activePresetId}
+            onPresetSelect={handlePresetSelect}
+          />
+        </div>
+
+        <LightControls
+          color={lightColor}
+          onColorChange={setLightColor}
+          intensity={lightIntensity}
+          onIntensityChange={setLightIntensity}
+        />
+      </section>
 
       <p className="experience__hint">
         Click and drag the mouse to explore the room.
